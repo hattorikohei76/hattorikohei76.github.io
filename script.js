@@ -63,7 +63,7 @@
   const SPACING = 30;            // 格子点の間隔（ワールド座標）
   const R = 140;                 // スキルミオン半径
   const A = 2.05 * R;            // スキルミオン格子の格子定数
-  const SLIDE_SPEED = 40;        // 格子が滑る速さ（ワールド座標 px/秒）
+  const SLIDE_SPEED = 30;        // 格子が滑る速さ（ワールド座標 px/秒）
   const SKX_HALL = 45 * Math.PI / 180; // スキルミオンホール角（駆動方向からのずれ）
   const ROW_H = A * Math.sqrt(3) / 2;
   const L_TOTAL = SPACING * 0.92; // 矢印の全長

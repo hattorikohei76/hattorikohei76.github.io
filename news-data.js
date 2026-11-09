@@ -20,13 +20,13 @@ window.NEWS = [
   },
   {
     date: "2026.11.05",
-    ja: "学術変革領域(A)「キメラ準粒子」研究会「<a href=\"https://chimera-qp.ee.es.osaka-u.ac.jp/event/1642/\" target=\"_blank\" rel=\"noopener\">理論が拓くキメラ準粒子研究のフロンティア</a>」（伊豆山研修センター、静岡県熱海市）で「反強磁性トポロジカル半金属におけるディラック電荷とその検出」について口頭発表します。",
-    en: "I will give an oral presentation, “Dirac charge in antiferromagnetic topological semimetals,” at the workshop “<a href=\"https://chimera-qp.ee.es.osaka-u.ac.jp/event/1642/\" target=\"_blank\" rel=\"noopener\">Frontiers of Chimera Quasiparticle Research Pioneered by Theory</a>” (Izusan Training Center, Atami, Shizuoka)."
+    ja: "学術変革領域(A)「キメラ準粒子」研究会「<a href=\"https://chimera-qp.ee.es.osaka-u.ac.jp/event/1642/\" target=\"_blank\" rel=\"noopener\">理論が拓くキメラ準粒子研究のフロンティア</a>」（伊豆山研修センター、静岡県熱海市）で「反強磁性トポロジカル半金属におけるディラック電荷とその検出」について口頭発表しました。",
+    en: "Gave an oral presentation, “Dirac charge in antiferromagnetic topological semimetals,” at the workshop “<a href=\"https://chimera-qp.ee.es.osaka-u.ac.jp/event/1642/\" target=\"_blank\" rel=\"noopener\">Frontiers of Chimera Quasiparticle Research Pioneered by Theory</a>” (Izusan Training Center, Atami, Shizuoka)."
   },
   {
     date: "2026.10.26",
-    ja: "国際会議 <a href=\"https://smartconf.jp/content/pipt9/\" target=\"_blank\" rel=\"noopener\">PIPT9（9th International Conference on Photoinduced Phase Transitions and Cooperative Phenomena）</a>（東京大学 伊藤国際学術研究センター、東京都文京区）で「Dirac charge in antiferromagnetic topological semimetals」についてポスター発表します。",
-    en: "I will present a poster, “Dirac charge in antiferromagnetic topological semimetals,” at <a href=\"https://smartconf.jp/content/pipt9/\" target=\"_blank\" rel=\"noopener\">PIPT9 (9th International Conference on Photoinduced Phase Transitions and Cooperative Phenomena)</a>, Ito International Research Center, The University of Tokyo."
+    ja: "国際会議 <a href=\"https://smartconf.jp/content/pipt9/\" target=\"_blank\" rel=\"noopener\">PIPT9（9th International Conference on Photoinduced Phase Transitions and Cooperative Phenomena）</a>（東京大学 伊藤国際学術研究センター、東京都文京区）で「Dirac charge in antiferromagnetic topological semimetals」についてポスター発表しました。",
+    en: "Presented a poster, “Dirac charge in antiferromagnetic topological semimetals,” at <a href=\"https://smartconf.jp/content/pipt9/\" target=\"_blank\" rel=\"noopener\">PIPT9 (9th International Conference on Photoinduced Phase Transitions and Cooperative Phenomena)</a>, Ito International Research Center, The University of Tokyo."
   },
   {
     date: "2026.10.16",

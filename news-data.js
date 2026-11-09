@@ -4,6 +4,11 @@
 // date: "YYYY.MM.DD" / ja: 日本語 / en: 英語（リンクは <a href="..."> で書けます）
 window.NEWS = [
   {
+    date: "2026.11.11",
+    ja: "北海道大学 工学部 応用物理学科（C325）でセミナー「反強磁性トポロジカル半金属におけるディラック電荷とその検出方法」を行います（10:30〜）。",
+    en: "I will give a seminar, “Dirac charge in antiferromagnetic topological semimetals and its detection,” at the Department of Applied Physics, Faculty of Engineering, Hokkaido University (Room C325, 10:30–)."
+  },
+  {
     date: "2026.11.24–26",
     ja: "<a href=\"https://rytaroarita.github.io/cds-quast-conference2026/index.html\" target=\"_blank\" rel=\"noopener\">CDS × QUAST Joint Workshop「Frontiers in Correlated Quantum Matter」</a>（東京大学 本郷キャンパス 小柴ホール、東京都文京区）で「Dirac charge in antiferromagnetic topological semimetals」についてポスター発表します。",
     en: "I will present a poster, “Dirac charge in antiferromagnetic topological semimetals,” at the <a href=\"https://rytaroarita.github.io/cds-quast-conference2026/index.html\" target=\"_blank\" rel=\"noopener\">CDS × QUAST Joint Workshop “Frontiers in Correlated Quantum Matter”</a> (Koshiba Hall, Hongo Campus, The University of Tokyo)."

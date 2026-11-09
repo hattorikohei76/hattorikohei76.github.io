@@ -5,8 +5,8 @@
 window.NEWS = [
   {
     date: "2026.11.11",
-    ja: "北海道大学 工学部 応用物理学科（C325）でセミナー「反強磁性トポロジカル半金属におけるディラック電荷とその検出方法」を行います（10:30〜）。",
-    en: "I will give a seminar, “Dirac charge in antiferromagnetic topological semimetals and its detection,” at the Department of Applied Physics, Faculty of Engineering, Hokkaido University (Room C325, 10:30–)."
+    ja: "北海道大学 工学部 応用物理学科でセミナー「反強磁性トポロジカル半金属におけるディラック電荷とその検出方法」を行います（10:30〜）。",
+    en: "I will give a seminar, “Dirac charge in antiferromagnetic topological semimetals and its detection,” at the Department of Applied Physics, Faculty of Engineering, Hokkaido University (10:30–)."
   },
   {
     date: "2026.11.24–26",

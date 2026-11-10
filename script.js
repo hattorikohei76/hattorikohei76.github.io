@@ -69,20 +69,8 @@
   const L_TOTAL = SPACING * 0.92; // 矢印の全長
   const L_CONE = L_TOTAL * 0.58;  // 円錐部分の長さ
   const R_CONE = SPACING * 0.2;   // 円錐の底面半径
-  const TILT_TOP = 52;             // ページ最上部での面の傾き [度]（0 で真上から）
-  const TILT_SCROLLED = 70;        // 見出し部分を下までスクロールしたときの傾き [度]
-  let COS_T = 1, SIN_T = 0, fade = 1;
-  const host = canvas.closest(".hero, .page-head") || canvas;
-
-  // スクロール量に応じて、見る角度を寝かせつつ薄くする
-  function updateScroll() {
-    const p = reduceMotion ? 0 : Math.min(1, Math.max(0, window.scrollY / Math.max(1, host.offsetHeight)));
-    const e = p * p * (3 - 2 * p);  // なめらかに変化させる
-    const tilt = (TILT_TOP + (TILT_SCROLLED - TILT_TOP) * e) * Math.PI / 180;
-    COS_T = Math.cos(tilt); SIN_T = Math.sin(tilt);
-    fade = 1 - 0.8 * e;
-  }
-  updateScroll();
+  const TILT = 52 * Math.PI / 180; // 面の傾き（0 で真上から）
+  const COS_T = Math.cos(TILT), SIN_T = Math.sin(TILT);
   const LIGHT = normalize([-0.45, -0.75, 0.5]); // 光源の向き（カメラ座標：x 右, y 下, z 手前）
   const HALF = normalize([LIGHT[0], LIGHT[1], LIGHT[2] + 1]); // ハイライト用
 
@@ -201,7 +189,6 @@
   }
 
   function draw(t) {
-    updateScroll();
     ctx.clearRect(0, 0, width, height);
     const helicity = Math.PI / 2;  // ブロッホ型に固定
     const narrow = width < 720;
@@ -225,8 +212,7 @@
       const xMin = Math.floor(((skipX - 30 - cx) / s) / SPACING) * SPACING;
       const xMax = Math.ceil(((width + 30 - cx) / s) / SPACING) * SPACING;
       const alpha = Math.min(1, Math.max(0.12, (s - 0.5) * 1.5))   // 遠くほど薄く
-                  * Math.min(1, Math.max(0, py / 140))             // 上端もフェード
-                  * fade;                                          // スクロールで薄くする
+                  * Math.min(1, Math.max(0, py / 140));            // 上端もフェード
       for (let X = Math.max(xMin, -6000); X <= xMax; X += SPACING) {
         const px = cx + X * s;
         const [dx, dy] = nearestCenter(X + shiftX, Y + shiftY);

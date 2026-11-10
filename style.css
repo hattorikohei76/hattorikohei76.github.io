@@ -1092,3 +1092,87 @@ details.project[open] .project-chevron { transform: rotate(225deg); margin-top: 
   .news-list li { grid-template-columns: auto 1fr; gap: 4px 10px; align-items: center; }
   .news-list li .news-text { grid-column: 1 / -1; }
 }
+
+/* ===== 論文：アブストラクト・BibTeX ===== */
+.tag-btn {
+  background: none;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.tag-btn:hover, .tag-btn.is-on { border-color: var(--accent); color: var(--accent); }
+.pub-abstract {
+  margin-top: 12px;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: var(--accent-soft);
+}
+.pub-abstract p { margin: 0; font-size: .9rem; line-height: 1.8; color: var(--text); }
+.pub-bibtex {
+  margin: 12px 0 0;
+  padding: 14px 18px;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: .8rem;
+  line-height: 1.6;
+}
+
+/* ===== ページ切り替えをなめらかに（対応ブラウザのみ） ===== */
+@view-transition { navigation: auto; }
+.site-header { view-transition-name: site-header; }
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: .35s; animation-timing-function: ease; }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* ===== 404 ページ ===== */
+.notfound .hero-inner { padding-bottom: 120px; }
+.notfound-code {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: clamp(4rem, 12vw, 7.5rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== 業績：発表地の地図 ===== */
+.map-figure {
+  margin: 0 0 48px;
+  padding: 24px 24px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.talk-map { display: block; width: 100%; height: auto; overflow: visible; }
+.map-land { fill: var(--accent-soft); stroke: color-mix(in srgb, var(--accent) 45%, transparent); stroke-width: .6; }
+.map-dot { fill: var(--warm); stroke: var(--surface); stroke-width: 1.5; }
+.map-pulse {
+  fill: var(--warm);
+  opacity: .35;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-pulse 2.6s ease-out infinite;
+}
+.map-site-home .map-pulse { animation-delay: .8s; }
+@keyframes map-pulse {
+  0%   { transform: scale(1);   opacity: .45; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+.map-site text { fill: var(--text); font: 500 13px var(--sans); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.map-site { cursor: default; }
+.map-figure figcaption { margin-top: 12px; font-size: .85rem; font-weight: 600; color: var(--muted); }
+.map-legend { display: block; margin-top: 2px; font-weight: 400; color: var(--faint); }
+@media (max-width: 720px) {
+  .map-figure { padding: 14px 12px 12px; }
+  .map-site text { display: none; }   /* スマホでは文字が小さすぎるので、地名は下の一覧で示す */
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-pulse { animation: none; opacity: 0; }
+}
+.talk-map { max-width: 1000px; margin: 0 auto; }

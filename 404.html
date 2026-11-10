@@ -11,9 +11,18 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=20261110d">
-  <script>document.documentElement.classList.add("js");</script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css?v=20261110f">
+  <script>
+    // 表示言語を描画前に決める：保存された選択 → ブラウザの言語（日本語以外なら英語）
+    (function () {
+      var d = document.documentElement, l = null;
+      d.classList.add("js");
+      try { l = localStorage.getItem("lang"); } catch (e) {}
+      if (l !== "ja" && l !== "en") l = /^ja\b/i.test(navigator.language || "") ? "ja" : "en";
+      d.lang = l;
+    })();
+  </script>
 </head>
 <body>
   <header class="site-header">
@@ -55,7 +64,7 @@
     <p>&copy; <span id="year">2026</span> Kohei Hattori</p>
   </footer>
 
-  <script src="/news-data.js?v=20261110d"></script>
-  <script src="/script.js?v=20261110d"></script>
+  <script src="/news-data.js?v=20261110f"></script>
+  <script src="/script.js?v=20261110f"></script>
 </body>
 </html>

@@ -3,18 +3,18 @@
   const root = document.documentElement;
   const button = document.querySelector(".lang-toggle");
 
-  function setLang(lang) {
+  // save = true のとき（ボタンで切り替えたとき）だけ選択を記憶する
+  function setLang(lang, save) {
     root.lang = lang;
     button.textContent = lang === "ja" ? "EN" : "JA";
-    try { localStorage.setItem("lang", lang); } catch (e) {}
+    if (save) { try { localStorage.setItem("lang", lang); } catch (e) {} }
   }
 
-  let saved = null;
-  try { saved = localStorage.getItem("lang"); } catch (e) {}
-  setLang(saved === "en" ? "en" : "ja");
+  // 初期言語は <head> 内のスクリプトで決めてある（保存された選択 → ブラウザの言語）
+  setLang(root.lang === "en" ? "en" : "ja", false);
 
   button.addEventListener("click", function () {
-    setLang(root.lang === "ja" ? "en" : "ja");
+    setLang(root.lang === "ja" ? "en" : "ja", true);
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();

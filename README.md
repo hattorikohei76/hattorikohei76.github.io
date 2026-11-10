@@ -46,3 +46,15 @@ python3 -m http.server 8000
    ```
 3. リポジトリの **Settings → Pages** で Source を「Deploy from a branch」、Branch を `main` / `(root)` にして Save
 4. 数分後に `https://YOUR-USERNAME.github.io/` で公開されます
+
+## 発表にスライド・ポスターの PDF を付ける
+
+1. PDF を `files/` フォルダに入れる（例：`files/2026-03-aps-gps-slides.pdf`）。
+2. `publications.html` の該当する発表の `<p class="p-meta">…</p>` の直後に、次の1行を足す。
+
+```html
+<p class="p-files"><a class="tag" href="files/2026-03-aps-gps-slides.pdf" target="_blank" rel="noopener">Slides</a><a class="tag" href="files/2026-03-aps-gps-poster.pdf" target="_blank" rel="noopener">Poster</a></p>
+```
+
+スライドだけ・ポスターだけの場合は、不要な方の `<a …>` を消す。公開してよい（共著者の了承がある、未発表データを含まない）ものだけを置くこと。
+

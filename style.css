@@ -8,7 +8,7 @@
   --accent: #2b4c9b;
   --accent-soft: #e8edf8;
   --warm: #c2553d;
-  --serif: "Fraunces", "Noto Serif JP", Georgia, serif;
+  --serif: "Fraunces", "Shippori Mincho", "Noto Serif JP", Georgia, serif;
   --sans: "Inter", "Noto Sans JP", system-ui, sans-serif;
   --max: 920px;
   /* スキルミオン背景の色 (m_z = +1 / -1) */
@@ -1179,3 +1179,66 @@ details.project[open] .project-chevron { transform: rotate(225deg); margin-top: 
 @media (prefers-color-scheme: dark) {
   .map-land { fill: color-mix(in srgb, var(--accent) 30%, var(--surface)); stroke: color-mix(in srgb, var(--accent) 60%, var(--surface)); }
 }
+
+/* ===== 経歴：PDF 保存ボタン ===== */
+.cv-print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--bg);
+  font: 500 .92rem var(--sans);
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.cv-print-btn::before { content: "↓"; font-weight: 600; }
+.cv-print-btn:hover { opacity: .85; }
+.print-only { display: none; }
+
+/* ===== 印刷・PDF 保存用のレイアウト（全ページ共通、A4） ===== */
+@media print {
+  @page { size: A4; margin: 16mm 15mm; }
+  :root {
+    --bg: #fff; --surface: #fff; --text: #111; --muted: #444; --faint: #666;
+    --border: #ccc; --accent: #1f3c80; --accent-soft: #eef1f8;
+  }
+  html, body { background: #fff !important; color: #111; font-size: 10.5pt; line-height: 1.6; }
+  .site-header, .site-footer, .hero-canvas, .no-print, .menu-toggle, .lang-toggle,
+  .page-head, .hero-links, .page-jump, .more, .map-figure { display: none !important; }
+  .print-only { display: block !important; }
+  .js .reveal { opacity: 1 !important; transform: none !important; }
+  main > .section, .hero-inner, .page-head-inner { max-width: none; padding: 0 !important; margin: 0; }
+  main > .section + .section { margin-top: 10mm; }
+  .section-title { font-size: 15pt; margin-bottom: 4mm; }
+  .sub-title { margin: 0 0 3mm; font-size: 10pt; }
+  .sub-title-gap { margin-top: 7mm; }
+  .timeline li { padding-bottom: 3.5mm; break-inside: avoid; }
+  .timeline::before { left: 144px; }
+  .timeline li { grid-template-columns: 144px 1fr; gap: 24px; }
+  .timeline li::after { left: 140px; }
+  .cv-cols { margin-top: 7mm; gap: 10mm; }
+  .plain-list li { padding-bottom: 2mm; break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  details > summary::after { display: none; }
+  .cv-print-head { margin-bottom: 8mm; padding-bottom: 4mm; border-bottom: 1.5px solid #1f3c80; }
+  .cv-print-head h1 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 20pt; line-height: 1.2; }
+  .cv-print-head h1 small { margin-left: 4mm; font-size: 11pt; font-weight: 500; color: #555; }
+  .cv-print-head p { margin: 1.5mm 0 0; font-size: 9pt; color: #333; }
+}
+
+/* ===== 業績：発表のスライド・ポスター（PDF）ボタン ===== */
+.p-files { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+.p-files .tag { display: inline-flex; align-items: center; gap: 5px; }
+.p-files .tag::before {
+  content: "";
+  width: 9px;
+  height: 11px;
+  border: 1.5px solid currentColor;
+  border-radius: 1.5px;
+  border-top-right-radius: 4px;
+  opacity: .8;
+}
+.p-files .tag:hover { text-decoration: none; border-color: var(--accent); color: var(--accent); }

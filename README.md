@@ -21,7 +21,7 @@ GitHub Pages で公開する個人ホームページです（HTML / CSS / JS の
 ## 編集のしかた
 
 - 日本語は `data-ja`、英語は `data-en` のついた要素に書きます。
-- ニュースは `news-data.js` に `{ date, ja, en }` を追加します（日付順に自動で並び、ニュースページでは年ごとに分かれます）。
+- ニュースは `news-data.js` に `{ date, type, ja, en }` を追加します（type は talk / invited / seminar / visit / award / info）（日付順に自動で並び、ニュースページでは年ごとに分かれます）。
 - 上部メニューは各ページに同じものが入っています。ページを増やすときは全ページのメニューに追加してください。
 
 ## ローカルで確認

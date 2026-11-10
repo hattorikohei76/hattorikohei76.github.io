@@ -1049,3 +1049,46 @@ details.project[open] .project-chevron { transform: rotate(225deg); margin-top: 
 }
 .talk-year .count { font-size: .7rem; }
 .talk-year .pres { padding-bottom: 8px; }
+
+/* ===== ニュース：種類ラベル ===== */
+:root {
+  --tag-talk: #2b4c9b;
+  --tag-invited: #c2553d;
+  --tag-seminar: #2f7d5b;
+  --tag-visit: #7a4fa8;
+  --tag-award: #a87a12;
+  --tag-info: #6b7280;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tag-talk: #8fb0f5;
+    --tag-invited: #ec8a72;
+    --tag-seminar: #6fcf9f;
+    --tag-visit: #c3a2ee;
+    --tag-award: #e6c25a;
+    --tag-info: #a2a8b1;
+  }
+}
+.news-list li { grid-template-columns: 130px 92px minmax(0, 1fr); gap: 0 20px; align-items: start; }
+.news-tag {
+  justify-self: start;
+  margin-top: 2px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  font-size: .74rem;
+  font-weight: 600;
+  line-height: 1.8;
+  white-space: nowrap;
+  color: var(--tag-color);
+  background: color-mix(in srgb, var(--tag-color) 13%, transparent);
+}
+.news-tag-talk    { --tag-color: var(--tag-talk); }
+.news-tag-invited { --tag-color: var(--tag-invited); }
+.news-tag-seminar { --tag-color: var(--tag-seminar); }
+.news-tag-visit   { --tag-color: var(--tag-visit); }
+.news-tag-award   { --tag-color: var(--tag-award); }
+.news-tag-info    { --tag-color: var(--tag-info); }
+@media (max-width: 720px) {
+  .news-list li { grid-template-columns: auto 1fr; gap: 4px 10px; align-items: center; }
+  .news-list li .news-text { grid-column: 1 / -1; }
+}

@@ -250,8 +250,20 @@
   const news = (window.NEWS || []).slice().sort(function (a, b) {
     return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
   });
+  // ニュースの種類ラベル（news-data.js の type に対応）
+  const TYPES = {
+    talk:    { ja: "発表",     en: "Talk" },
+    invited: { ja: "招待講演", en: "Invited" },
+    seminar: { ja: "セミナー", en: "Seminar" },
+    visit:   { ja: "滞在",     en: "Visit" },
+    award:   { ja: "受賞",     en: "Award" },
+    info:    { ja: "お知らせ", en: "News" }
+  };
   const row = function (item) {
+    const t = TYPES[item.type] || TYPES.info;
+    const key = TYPES[item.type] ? item.type : "info";
     return '<li><time class="news-date">' + item.date + '</time>' +
+      '<span class="news-tag news-tag-' + key + '"><span data-ja>' + t.ja + '</span><span data-en>' + t.en + '</span></span>' +
       '<p class="news-text"><span data-ja>' + item.ja + '</span><span data-en>' + (item.en || item.ja) + '</span></p></li>';
   };
 

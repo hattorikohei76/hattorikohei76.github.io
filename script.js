@@ -245,11 +245,12 @@
 })();
 
 // ===== ニュース（news-data.js の内容を表示） =====
-// 日付の新しい順に並べ替える。ホーム（data-limit あり）は最新数件、ニュースページ（data-news-years）は年ごとに見出しを付ける。
+// 日付を見て「これからの予定」（終了日が今日以降）と「これまで」に自動で分ける。
+// 過ぎた予定は、jaPast / enPast があればその文（過去形）に自動で切り替わる。
 (function () {
-  const news = (window.NEWS || []).slice().sort(function (a, b) {
-    return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
-  });
+  const all = window.NEWS || [];
+  if (!document.querySelector("[data-news-home], [data-news-years]")) return;
+
   // ニュースの種類ラベル（news-data.js の type に対応）
   const TYPES = {
     talk:    { ja: "発表",     en: "Talk" },
@@ -259,23 +260,61 @@
     award:   { ja: "受賞",     en: "Award" },
     info:    { ja: "お知らせ", en: "News" }
   };
+
+  // "2026.11.09–13" / "2026.11.30–12.02" / "2026.11.11" → 終了日を YYYYMMDD の数値で返す
+  function endKey(date) {
+    const m = /^(\d{4})\.(\d{1,2})\.(\d{1,2})(?:\s*[–\-~〜]\s*([\d.]+))?/.exec(date);
+    if (!m) return 0;
+    let y = +m[1], mo = +m[2], d = +m[3];
+    if (m[4]) {
+      const parts = m[4].split(".").map(Number);
+      if (parts.length === 1) d = parts[0];
+      else if (parts.length === 2) { mo = parts[0]; d = parts[1]; }
+      else { y = parts[0]; mo = parts[1]; d = parts[2]; }
+    }
+    return y * 10000 + mo * 100 + d;
+  }
+  const now = new Date();
+  const today = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+  const isUpcoming = function (item) { return item.type !== "info" && endKey(item.date) >= today; };
+  const byDate = function (dir) {
+    return function (a, b) { return a.date < b.date ? -dir : a.date > b.date ? dir : 0; };
+  };
+  const upcoming = all.filter(isUpcoming).sort(byDate(1));          // 近い順
+  const past = all.filter(function (n) { return !isUpcoming(n); }).sort(byDate(-1)); // 新しい順
+
   const row = function (item) {
     const t = TYPES[item.type] || TYPES.info;
     const key = TYPES[item.type] ? item.type : "info";
+    const done = !isUpcoming(item);
+    const ja = done && item.jaPast ? item.jaPast : item.ja;
+    const en = done && item.enPast ? item.enPast : (item.en || item.ja);
     return '<li><time class="news-date">' + item.date + '</time>' +
       '<span class="news-tag news-tag-' + key + '"><span data-ja>' + t.ja + '</span><span data-en>' + t.en + '</span></span>' +
-      '<p class="news-text"><span data-ja>' + item.ja + '</span><span data-en>' + (item.en || item.ja) + '</span></p></li>';
+      '<p class="news-text"><span data-ja>' + ja + '</span><span data-en>' + en + '</span></p></li>';
+  };
+  const list = function (items) { return '<ol class="news-list">' + items.map(row).join("") + '</ol>'; };
+  const heading = function (ja, en, extra) {
+    return '<h3 class="sub-title news-sub' + (extra || "") + '"><span data-ja>' + ja + '</span><span data-en>' + en + '</span></h3>';
+  };
+  const upcomingBlock = function (items) {
+    return items.length ? heading("これからの予定", "Upcoming", " news-sub-upcoming") + list(items) : "";
   };
 
-  document.querySelectorAll("[data-news]").forEach(function (list) {
-    const limit = parseInt(list.getAttribute("data-limit"), 10) || news.length;
-    list.innerHTML = news.slice(0, limit).map(row).join("");
+  // ホーム：これからの予定（近い順）と、これまで（新しい順）を数件ずつ
+  document.querySelectorAll("[data-news-home]").forEach(function (box) {
+    const nUp = parseInt(box.getAttribute("data-upcoming"), 10) || 3;
+    const nPast = parseInt(box.getAttribute("data-past"), 10) || 3;
+    const up = upcoming.slice(0, nUp);
+    box.innerHTML = upcomingBlock(up) +
+      heading("これまで", "Recent", up.length ? " sub-title-gap" : "") + list(past.slice(0, nPast));
   });
 
+  // ニュースページ：これからの予定 ＋ これまで（年ごとに折りたたみ）
   document.querySelectorAll("[data-news-years]").forEach(function (box) {
     const years = [];
     const byYear = {};
-    news.forEach(function (item) {
+    past.forEach(function (item) {
       const y = item.date.slice(0, 4);
       if (!byYear[y]) { byYear[y] = []; years.push(y); }
       byYear[y].push(item);
@@ -285,12 +324,13 @@
           return '<li><a href="#news-' + y + '">' + y + '<span class="count">' + byYear[y].length + '</span></a></li>';
         }).join("") + '</ul>'
       : "";
-    // 年ごとに折りたたみ（最新の年だけ最初から開く）
-    box.innerHTML = jump + years.map(function (y, i) {
-      return '<details class="pres-group news-year" id="news-' + y + '"' + (i === 0 ? ' open' : '') + '>' +
-        '<summary><span class="news-year-title">' + y + '</span><span class="count">' + byYear[y].length + '</span></summary>' +
-        '<ol class="news-list">' + byYear[y].map(row).join("") + '</ol></details>';
-    }).join("");
+    box.innerHTML = upcomingBlock(upcoming) +
+      heading("これまで", "Past", upcoming.length ? " sub-title-gap" : "") + jump +
+      years.map(function (y, i) {
+        return '<details class="pres-group news-year" id="news-' + y + '"' + (i === 0 ? ' open' : '') + '>' +
+          '<summary><span class="news-year-title">' + y + '</span><span class="count">' + byYear[y].length + '</span></summary>' +
+          list(byYear[y]) + '</details>';
+      }).join("");
     // 年ボタンで移動したときは、その年を開く
     box.querySelectorAll(".news-jump a").forEach(function (a) {
       a.addEventListener("click", function () {
@@ -361,4 +401,38 @@
       });
     });
   });
+})();
+
+// ===== 追従する目次（今見ている場所に印）と、先頭へ戻るボタン =====
+(function () {
+  const toc = document.querySelector(".side-toc");
+  const links = toc ? Array.prototype.slice.call(toc.querySelectorAll("a")) : [];
+  const targets = links.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+  const head = document.querySelector(".page-head, .hero");
+
+  const top = document.createElement("button");
+  top.type = "button";
+  top.className = "to-top no-print";
+  top.setAttribute("aria-label", "ページの先頭へ / Back to top");
+  top.innerHTML = '<span aria-hidden="true"></span>';
+  top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+  document.body.appendChild(top);
+
+  function update() {
+    const y = window.scrollY;
+    top.classList.toggle("is-visible", y > 600);
+    if (!toc) return;
+    toc.classList.toggle("is-visible", y > (head ? head.offsetHeight - 160 : 200));
+    const line = window.innerHeight * 0.35;
+    let active = -1;
+    targets.forEach(function (el, i) {
+      if (el && el.getBoundingClientRect().top <= line) active = i;
+    });
+    links.forEach(function (a, i) {
+      a.classList.toggle("is-active", i === active);
+    });
+  }
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
 })();

@@ -22,7 +22,8 @@ GitHub Pages で公開する個人ホームページです（HTML / CSS / JS の
 ## 編集のしかた
 
 - 日本語は `data-ja`、英語は `data-en` のついた要素に書きます。
-- ニュースは `news-data.js` に `{ date, type, ja, en }` を追加します（type は talk / invited / seminar / visit / award / info）（日付順に自動で並び、ニュースページでは年ごとに分かれます）。
+- `og-image.jpg` は URL を共有したときに表示されるカード画像です。
+- ニュースは `news-data.js` に `{ date, type, ja, en }` を追加します（type は talk / invited / seminar / visit / award / info。予定には `jaPast` / `enPast` を書いておくと、過ぎたあと自動で過去形になります）（日付順に自動で並び、ニュースページでは年ごとに分かれます）。
 - `style.css` / `script.js` / `news-data.js` を変更したら、全 HTML の `?v=…` の番号も更新してください（ブラウザに古いファイルが残らないようにするため）。
 - 上部メニューは各ページに同じものが入っています。ページを増やすときは全ページのメニューに追加してください。
 

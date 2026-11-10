@@ -5,6 +5,12 @@
 // type: 種類のラベル（talk=発表 / invited=招待講演 / seminar=セミナー / visit=滞在 / award=受賞 / info=お知らせ）
 window.NEWS = [
   {
+    date: "2026.12.14–15",
+    type: "talk",
+    ja: "学術変革領域(A)「相関設計で挑む量子創発」<a href=\"https://cds.phys.s.u-tokyo.ac.jp/events/annual-meeting-2026/\" target=\"_blank\" rel=\"noopener\">2026年 領域会議</a>（東京大学 本郷キャンパス 武田ホール、東京都文京区）で「Nonreciprocal magnon dynamics from hidden Dirac charges」についてポスター発表します。",
+    en: "I will present a poster, “Nonreciprocal magnon dynamics from hidden Dirac charges,” at the <a href=\"https://cds.phys.s.u-tokyo.ac.jp/events/annual-meeting-2026/\" target=\"_blank\" rel=\"noopener\">Annual Meeting 2026</a> of the Correlation Design Science project (Takeda Hall, Hongo Campus, The University of Tokyo)."
+  },
+  {
     date: "2026.11.11",
     type: "seminar",
     ja: "北海道大学 工学部 応用物理学科でセミナー「反強磁性トポロジカル半金属におけるディラック電荷とその検出方法」を行います（10:30〜）。",

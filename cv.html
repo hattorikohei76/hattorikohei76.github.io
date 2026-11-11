@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261110h">
+  <link rel="stylesheet" href="style.css?v=20261111a">
   <script>
     // 表示言語を描画前に決める：保存された選択 → ブラウザの言語（日本語以外なら英語）
     (function () {
@@ -49,6 +49,13 @@
   </header>
 
   <main>
+    <!-- 印刷（PDF 保存）したときだけ表示する見出し -->
+    <div class="print-only cv-print-head">
+        <h1><span data-ja>服部 航平</span><span data-en>Kohei Hattori</span><small><span data-ja>Kohei Hattori</span><span data-en>服部 航平</span></small></h1>
+        <p><span data-ja>東京大学大学院 工学系研究科 物理工学専攻 博士課程 ／ 日本学術振興会 特別研究員（DC2）</span><span data-en>Ph.D. Student, Department of Applied Physics, The University of Tokyo / JSPS Research Fellow (DC2)</span></p>
+        <p>Email: hattori-kohei053_at_g.ecc.u-tokyo.ac.jp ／ ORCID: 0009-0005-0678-113X ／ https://hattorikohei76.github.io/</p>
+    </div>
+
     <section class="page-head">
       <canvas class="hero-canvas" aria-hidden="true"></canvas>
       <div class="page-head-inner">
@@ -62,13 +69,7 @@
     </section>
 
     <section class="section reveal">
-      <!-- 印刷（PDF 保存）したときだけ表示する見出し -->
-      <div class="print-only cv-print-head">
-        <h1><span data-ja>服部 航平</span><span data-en>Kohei Hattori</span><small><span data-ja>Kohei Hattori</span><span data-en>服部 航平</span></small></h1>
-        <p><span data-ja>東京大学大学院 工学系研究科 物理工学専攻 博士課程 ／ 日本学術振興会 特別研究員（DC2）</span><span data-en>Ph.D. Student, Department of Applied Physics, The University of Tokyo / JSPS Research Fellow (DC2)</span></p>
-        <p>Email: hattori-kohei053_at_g.ecc.u-tokyo.ac.jp ／ ORCID: 0009-0005-0678-113X ／ https://hattorikohei76.github.io/</p>
-      </div>
-      <h3 class="sub-title"><span data-ja>職歴</span><span data-en>Positions</span></h3>
+      <h2 class="section-title"><span data-ja>職歴</span><span data-en>Positions</span></h2>
       <ol class="timeline">
         <li>
           <span class="tl-date">2026.4 – <span data-ja>現在</span><span data-en>present</span></span>
@@ -77,8 +78,10 @@
           </div>
         </li>
       </ol>
+    </section>
 
-      <h3 class="sub-title sub-title-gap"><span data-ja>学歴</span><span data-en>Education</span></h3>
+    <section class="section section-compact reveal">
+      <h2 class="section-title"><span data-ja>学歴</span><span data-en>Education</span></h2>
       <ol class="timeline">
         <li>
           <span class="tl-date">2025.4 – <span data-ja>現在</span><span data-en>present</span></span>
@@ -108,11 +111,11 @@
           </div>
         </li>
       </ol>
+    </section>
 
-      <div class="cv-cols">
-        <div>
-          <h3 class="sub-title"><span data-ja>受賞</span><span data-en>Awards</span></h3>
-          <ul class="plain-list">
+    <section class="section section-compact reveal">
+      <h2 class="section-title"><span data-ja>受賞</span><span data-en>Awards</span></h2>
+      <ul class="plain-list">
             <li>
               <span data-ja>日本物理学会 学生優秀発表賞（領域4）</span><span data-en>JPS Student Presentation Award (Division 4)</span>
               <span class="pl-note"><span data-ja>第80回年次大会（2025年）「反強磁性トポロジカル半金属におけるディラック電荷とその検出」</span><span data-en>80th JPS Annual Meeting (2025)</span></span>
@@ -121,16 +124,15 @@
               <span data-ja>MERIT CAMP ポスター賞</span><span data-en>MERIT CAMP Poster Award</span>
             </li>
             <li>Transscale Poster Prize</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="sub-title"><span data-ja>活動</span><span data-en>Service</span></h3>
-          <ul class="plain-list">
+      </ul>
+    </section>
+
+    <section class="section section-compact reveal">
+      <h2 class="section-title"><span data-ja>活動</span><span data-en>Service</span></h2>
+      <ul class="plain-list">
             <li><span data-ja>計算物理学春の学校 世話人</span><span data-en>Organizer, Spring School of Computational Physics</span></li>
             <li><span data-ja>物性若手夏の学校 世話人</span><span data-en>Organizer, Summer School for Young Researchers in Condensed Matter Physics</span></li>
-          </ul>
-        </div>
-      </div>
+      </ul>
     </section>
   </main>
 
@@ -138,7 +140,7 @@
     <p>&copy; <span id="year">2026</span> Kohei Hattori</p>
   </footer>
 
-  <script src="news-data.js?v=20261110h"></script>
-  <script src="script.js?v=20261110h"></script>
+  <script src="news-data.js?v=20261111a"></script>
+  <script src="script.js?v=20261111a"></script>
 </body>
 </html>

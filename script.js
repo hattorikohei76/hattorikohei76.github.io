@@ -324,15 +324,24 @@
           return '<li><a href="#news-' + y + '">' + y + '<span class="count">' + byYear[y].length + '</span></a></li>';
         }).join("") + '</ul>'
       : "";
-    box.innerHTML = upcomingBlock(upcoming) +
-      heading("これまで", "Past", upcoming.length ? " sub-title-gap" : "") + jump +
-      years.map(function (y, i) {
-        return '<details class="pres-group news-year" id="news-' + y + '"' + (i === 0 ? ' open' : '') + '>' +
-          '<summary><span class="news-year-title">' + y + '</span><span class="count">' + byYear[y].length + '</span></summary>' +
-          list(byYear[y]) + '</details>';
-      }).join("");
+    const section = function (ja, en, body, first) {
+      return '<section class="section' + (first ? '' : ' section-compact') + '">' +
+        '<h2 class="section-title"><span data-ja>' + ja + '</span><span data-en>' + en + '</span></h2>' + body + '</section>';
+    };
+    const wrap = document.createElement("div");
+    wrap.innerHTML =
+      (upcoming.length ? section("これからの予定", "Upcoming", list(upcoming), true) : "") +
+      section("これまで", "Past", jump +
+        years.map(function (y, i) {
+          return '<details class="pres-group news-year" id="news-' + y + '"' + (i === 0 ? ' open' : '') + '>' +
+            '<summary><span class="news-year-title">' + y + '</span><span class="count">' + byYear[y].length + '</span></summary>' +
+            list(byYear[y]) + '</details>';
+        }).join(""), !upcoming.length);
+    const made = Array.prototype.slice.call(wrap.children);
+    made.forEach(function (el) { box.parentNode.insertBefore(el, box); });
+    box.remove();
     // 年ボタンで移動したときは、その年を開く
-    box.querySelectorAll(".news-jump a").forEach(function (a) {
+    document.querySelectorAll(".news-jump a").forEach(function (a) {
       a.addEventListener("click", function () {
         const target = document.querySelector(a.getAttribute("href"));
         if (target) target.open = true;

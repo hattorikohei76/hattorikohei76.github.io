@@ -20,6 +20,38 @@
   document.getElementById("year").textContent = new Date().getFullYear();
 })();
 
+// ===== ライト / ダーク切替（選択はブラウザに記憶） =====
+// ボタンで選んでいないあいだは OS の設定に従う。OS と同じ側に戻したときは「OS に従う」状態に戻す。
+(function () {
+  const root = document.documentElement;
+  const button = document.querySelector(".theme-toggle");
+  if (!button) return;
+  const system = window.matchMedia("(prefers-color-scheme: dark)");
+  const systemTheme = () => (system.matches ? "dark" : "light");
+  const current = () => root.getAttribute("data-theme") || systemTheme();
+
+  function label() {
+    const dark = current() === "dark";
+    const text = dark ? "ライトモードに切り替え / Switch to light mode" : "ダークモードに切り替え / Switch to dark mode";
+    button.setAttribute("aria-label", text);
+    button.title = text;
+  }
+
+  button.addEventListener("click", function () {
+    const next = current() === "dark" ? "light" : "dark";
+    try {
+      if (next === systemTheme()) { root.removeAttribute("data-theme"); localStorage.removeItem("theme"); }
+      else { root.setAttribute("data-theme", next); localStorage.setItem("theme", next); }
+    } catch (e) {
+      root.setAttribute("data-theme", next);
+    }
+    label();
+    document.dispatchEvent(new CustomEvent("themechange"));  // 背景の矢印の色を塗り直す
+  });
+  system.addEventListener("change", label);
+  label();
+})();
+
 // ===== スマホ用メニュー =====
 (function () {
   const button = document.querySelector(".menu-toggle");
@@ -237,6 +269,7 @@
   draw(0);
   window.addEventListener("resize", () => { resize(); draw(last); });
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { readColors(); draw(last); });
+  document.addEventListener("themechange", () => { readColors(); draw(last); });
 
   if (!reduceMotion) {
     new IntersectionObserver(([e]) => { running = e.isIntersecting; }).observe(canvas);

@@ -20,15 +20,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261121a">
+  <link rel="stylesheet" href="style.css?v=20261121b">
   <script>
     // 表示言語を描画前に決める：保存された選択 → ブラウザの言語（日本語以外なら英語）
+    // テーマ（ライト / ダーク）も同じく：ボタンで選んだものがあればそれ、なければ OS の設定に従う
     (function () {
-      var d = document.documentElement, l = null;
+      var d = document.documentElement, l = null, t = null;
       d.classList.add("js");
-      try { l = localStorage.getItem("lang"); } catch (e) {}
+      try { l = localStorage.getItem("lang"); t = localStorage.getItem("theme"); } catch (e) {}
       if (l !== "ja" && l !== "en") l = /^ja\b/i.test(navigator.language || "") ? "ja" : "en";
       d.lang = l;
+      if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
     })();
   </script>
 </head>
@@ -43,7 +45,13 @@
         <li><a href="publications.html"><span data-ja>業績</span><span data-en>Publications</span></a></li>
         <li><a href="cv.html"><span data-ja>経歴</span><span data-en>CV</span></a></li>
       </ul>
-      <button class="lang-toggle" type="button" aria-label="Switch language / 言語切替">EN</button>
+      <div class="nav-tools">
+        <button class="lang-toggle" type="button" aria-label="Switch language / 言語切替">EN</button>
+        <button class="theme-toggle" type="button" aria-label="ライト / ダーク切替 / Toggle light and dark">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></svg>
+        </button>
+      </div>
       <button class="menu-toggle" type="button" aria-label="メニュー / Menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
     </nav>
   </header>
@@ -66,7 +74,7 @@
     <p>&copy; <span id="year">2026</span> Kohei Hattori</p>
   </footer>
 
-  <script src="news-data.js?v=20261121a"></script>
-  <script src="script.js?v=20261121a"></script>
+  <script src="news-data.js?v=20261121b"></script>
+  <script src="script.js?v=20261121b"></script>
 </body>
 </html>

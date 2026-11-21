@@ -70,10 +70,21 @@
 
   --radius: 12px;
   --nav-h: 60px;
+
+  /* テーマ（ライト / ダーク）で変わる細かい値 */
+  color-scheme: light;
+  --canvas-opacity: .82;
+  --map-fill: 16%;
+  --map-stroke: 40%;
+  --embed-filter: none;
+  --icon-sun: none;     /* ダークのときに表示（押すとライトへ） */
+  --icon-moon: block;   /* ライトのときに表示（押すとダークへ） */
 }
 
+/* ダークモード。①OS がダークで、ボタンでライトを選んでいないとき ②ボタンでダークを選んだとき。
+   2 か所に同じ値を書いているので、色を変えるときは両方を直すこと。 */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #121418;
     --surface: #1a1d22;
     --text: #e8e9eb;
@@ -92,7 +103,41 @@
     --tag-visit: #c3a2ee;
     --tag-award: #e6c25a;
     --tag-info: #a2a8b1;
+    color-scheme: dark;
+    --canvas-opacity: .9;
+    --map-fill: 30%;
+    --map-stroke: 60%;
+    --embed-filter: invert(.9) hue-rotate(180deg) saturate(.6);
+    --icon-sun: block;
+    --icon-moon: none;
   }
+}
+:root[data-theme="dark"] {
+  --bg: #121418;
+  --surface: #1a1d22;
+  --text: #e8e9eb;
+  --muted: #a2a8b1;
+  --faint: #737a84;
+  --border: #2a2e35;
+  --accent: #8fb0f5;
+  --accent-soft: #1f2a42;
+  --warm: #ec8a72;
+  --spin-up: 120, 160, 245;
+  --spin-mid: 225, 226, 236;
+  --spin-down: 240, 128, 100;
+  --tag-talk: #8fb0f5;
+  --tag-invited: #ec8a72;
+  --tag-seminar: #6fcf9f;
+  --tag-visit: #c3a2ee;
+  --tag-award: #e6c25a;
+  --tag-info: #a2a8b1;
+  color-scheme: dark;
+  --canvas-opacity: .9;
+  --map-fill: 30%;
+  --map-stroke: 60%;
+  --embed-filter: invert(.9) hue-rotate(180deg) saturate(.6);
+  --icon-sun: block;
+  --icon-moon: none;
 }
 
 /* 画面が広いほど全体の文字を少し大きくする（各サイズは rem なので一緒に変わる） */
@@ -198,6 +243,36 @@ html[lang="en"] [data-ja] { display: none; }
 }
 .lang-toggle:hover { border-color: var(--accent); }
 
+/* 言語とテーマのボタンをまとめる枠 */
+.nav-tools { display: flex; align-items: center; gap: var(--s2); }
+
+/* ライト / ダーク切替 */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-toggle .icon-sun  { display: var(--icon-sun); }
+.theme-toggle .icon-moon { display: var(--icon-moon); }
+
 .menu-toggle {
   display: none;
   position: relative;
@@ -226,7 +301,7 @@ html[lang="en"] [data-ja] { display: none; }
 @media (max-width: 980px) {
   .nav-links { display: none; }
   .menu-toggle { display: block; }
-  .lang-toggle { margin-left: auto; }
+  .nav-tools { margin-left: auto; }
   .nav-open .site-header { background: var(--bg); border-bottom-color: var(--border); }
   .nav-open .nav-links {
     display: flex;
@@ -263,10 +338,7 @@ html[lang="en"] [data-ja] { display: none; }
   height: calc(100% - var(--nav-h) - 4px);
   -webkit-mask-image: linear-gradient(100deg, transparent 24%, rgba(0,0,0,.45) 52%, #000 80%);
           mask-image: linear-gradient(100deg, transparent 24%, rgba(0,0,0,.45) 52%, #000 80%);
-  opacity: .82;
-}
-@media (prefers-color-scheme: dark) {
-  .hero-canvas { opacity: .9; }
+  opacity: var(--canvas-opacity);
 }
 
 .hero-inner {
@@ -675,10 +747,7 @@ a.tag:hover { text-decoration: none; border-color: var(--accent); color: var(--a
 /* 発表地の地図 */
 .map-figure { margin: 0 0 var(--s7); }
 .talk-map { display: block; width: 100%; max-width: 1000px; height: auto; overflow: visible; }
-.map-land { fill: color-mix(in srgb, var(--accent) 16%, var(--surface)); stroke: color-mix(in srgb, var(--accent) 40%, var(--surface)); stroke-width: .6; }
-@media (prefers-color-scheme: dark) {
-  .map-land { fill: color-mix(in srgb, var(--accent) 30%, var(--surface)); stroke: color-mix(in srgb, var(--accent) 60%, var(--surface)); }
-}
+.map-land { fill: color-mix(in srgb, var(--accent) var(--map-fill), var(--surface)); stroke: color-mix(in srgb, var(--accent) var(--map-stroke), var(--surface)); stroke-width: .6; }
 .map-dot { fill: var(--warm); stroke: var(--bg); stroke-width: 2; }
 .map-pulse {
   fill: var(--warm);
@@ -856,10 +925,7 @@ html[lang="en"] .project-sub { text-transform: uppercase; }
 .walk { flex-shrink: 0; color: var(--faint); font-variant-numeric: tabular-nums; }
 .access-links { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); margin: var(--s5) 0 0; font-size: var(--fs-sm); font-weight: 500; }
 .access-map { min-height: 340px; border-radius: var(--radius); overflow: hidden; }
-.access-map iframe { display: block; width: 100%; height: 100%; min-height: 340px; border: 0; }
-@media (prefers-color-scheme: dark) {
-  .access-map iframe { filter: invert(.9) hue-rotate(180deg) saturate(.6); }
-}
+.access-map iframe { display: block; width: 100%; height: 100%; min-height: 340px; border: 0; filter: var(--embed-filter); }
 
 /* ===== フッター ===== */
 .site-footer {
@@ -1020,13 +1086,14 @@ html[lang="en"] .project-sub { text-transform: uppercase; }
 /* ===== 印刷・PDF 保存用のレイアウト（全ページ共通、A4） ===== */
 @media print {
   @page { size: A4; margin: 16mm 15mm; }
-  :root {
+  :root, :root[data-theme], :root:not([data-theme="light"]) {
+    color-scheme: light;
     --bg: #fff; --surface: #fff; --text: #111; --muted: #444; --faint: #666;
     --border: #ccc; --accent: #1f3c80; --accent-soft: #eef1f8;
   }
   html { font-size: 10.5pt; }
   html, body { background: #fff !important; color: #111; line-height: 1.6; }
-  .site-header, .site-footer, .hero-canvas, .no-print, .menu-toggle, .lang-toggle,
+  .site-header, .site-footer, .hero-canvas, .no-print, .menu-toggle, .nav-tools,
   .page-head, .hero-links, .page-jump, .more, .map-figure { display: none !important; }
   .print-only { display: block !important; }
   .js .reveal { opacity: 1 !important; transform: none !important; }

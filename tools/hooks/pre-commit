@@ -1,0 +1,38 @@
+#!/bin/sh
+# コミットの直前に、CV の PDF（files/CV_Kohei_Hattori_*.pdf）を最新の内容で作り直してコミットに含める。
+#
+# 有効にする設定（このフォルダで 1 回だけ）:
+#     git config core.hooksPath tools/hooks
+#
+# 作り直すのは、CV のもとになるファイル（cv.html / publications.html / tools/build_cv.py）が
+# コミットに含まれるときだけ。作成に失敗してもコミットは止めない（PDF は前のまま）。
+
+GIT="git"
+[ -n "$GIT_EXEC_PATH" ] && [ -x "$GIT_EXEC_PATH/git" ] && GIT="$GIT_EXEC_PATH/git"
+"$GIT" --version >/dev/null 2>&1 || GIT="/Applications/GitHub Desktop.app/Contents/Resources/app/git/bin/git"
+
+PATH="$PATH:/Library/TeX/texbin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin"
+export PATH
+
+cd "$("$GIT" rev-parse --show-toplevel)" || exit 0
+
+if [ -z "$CV_FORCE" ] && ! "$GIT" diff --cached --name-only | grep -qE '^(cv\.html|publications\.html|tools/build_cv\.py)$'; then
+  exit 0
+fi
+
+# 動く python3 を探す（PATH の順番によっては壊れた python3 が先に見つかることがある）
+PY=""
+for c in python3 /usr/bin/python3 /opt/homebrew/bin/python3 /usr/local/bin/python3; do
+  if "$c" -c "" >/dev/null 2>&1; then PY="$c"; break; fi
+done
+if [ -z "$PY" ]; then
+  echo "pre-commit: python3 が見つからないため、CV の PDF は前のままコミットします。" >&2
+  exit 0
+fi
+
+if "$PY" tools/build_cv.py; then
+  "$GIT" add files/CV_Kohei_Hattori_ja.pdf files/CV_Kohei_Hattori_en.pdf
+else
+  echo "pre-commit: CV の PDF を作り直せませんでした。PDF は前のままコミットします。" >&2
+fi
+exit 0

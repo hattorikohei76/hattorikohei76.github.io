@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261111a">
+  <link rel="stylesheet" href="style.css?v=20261121a">
   <script>
     // 表示言語を描画前に決める：保存された選択 → ブラウザの言語（日本語以外なら英語）
     (function () {
@@ -62,9 +62,6 @@
         <p class="eyebrow">Curriculum Vitae</p>
         <h1 class="page-title"><span data-ja>経歴</span><span data-en>CV</span></h1>
         <p class="page-lead"><span data-ja>学歴・職歴、受賞、活動</span><span data-en>Education, positions, awards, and service</span></p>
-        <ul class="page-jump no-print">
-          <li><button type="button" class="cv-print-btn" onclick="window.print()"><span data-ja>PDF で保存・印刷</span><span data-en>Save as PDF / Print</span></button></li>
-        </ul>
       </div>
     </section>
 
@@ -134,13 +131,23 @@
             <li><span data-ja>物性若手夏の学校 世話人</span><span data-en>Organizer, Summer School for Young Researchers in Condensed Matter Physics</span></li>
       </ul>
     </section>
+
+    <!-- CV の PDF（tools/build_cv.py がこのページと業績ページの内容から LaTeX で自動作成する） -->
+    <section class="section section-compact reveal no-print" id="download">
+      <h2 class="section-title"><span data-ja>CV（PDF）</span><span data-en>CV (PDF)</span></h2>
+      <ul class="dl-list">
+        <li><a class="dl-btn" href="files/CV_Kohei_Hattori_ja.pdf" download><span data-ja>日本語版</span><span data-en>Japanese</span></a></li>
+        <li><a class="dl-btn" href="files/CV_Kohei_Hattori_en.pdf" download><span data-ja>英語版</span><span data-en>English</span></a></li>
+      </ul>
+      <p class="dl-note"><span data-ja>論文・発表の一覧を含む CV です。</span><span data-en>Full CV including the lists of papers and presentations.</span></p>
+    </section>
   </main>
 
   <footer class="site-footer">
     <p>&copy; <span id="year">2026</span> Kohei Hattori</p>
   </footer>
 
-  <script src="news-data.js?v=20261111a"></script>
-  <script src="script.js?v=20261111a"></script>
+  <script src="news-data.js?v=20261121a"></script>
+  <script src="script.js?v=20261121a"></script>
 </body>
 </html>

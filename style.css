@@ -376,7 +376,7 @@ html[lang="ja"] .page-title { letter-spacing: .06em; }
 /* ページ内ジャンプ・件数のボタン */
 .page-jump { display: flex; flex-wrap: wrap; gap: var(--s3); list-style: none; margin: var(--s5) 0 0; padding: 0; }
 .page-jump a,
-.cv-print-btn {
+.dl-btn {
   display: inline-flex;
   align-items: center;
   gap: var(--s2);
@@ -390,9 +390,13 @@ html[lang="ja"] .page-title { letter-spacing: .06em; }
   transition: border-color .2s, opacity .2s;
 }
 .page-jump a:hover { text-decoration: none; border-color: var(--accent); }
-.cv-print-btn { border-color: var(--accent); background: var(--accent); color: var(--bg); cursor: pointer; }
-.cv-print-btn::before { content: "↓"; font-weight: 600; }
-.cv-print-btn:hover { opacity: .85; }
+
+/* ダウンロードボタン（経歴ページの CV） */
+.dl-list { display: flex; flex-wrap: wrap; gap: var(--s3); list-style: none; margin: 0; padding: 0; }
+.dl-btn { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+.dl-btn::before { content: "↓"; font-weight: 600; }
+.dl-btn:hover { text-decoration: none; opacity: .85; }
+.dl-note { margin: var(--s3) 0 0; color: var(--muted); font-size: var(--fs-sm); }
 
 .count {
   min-width: 1.7rem;

@@ -16,6 +16,9 @@ GitHub Pages で公開する個人ホームページです（HTML / CSS / JS の
 | `favicon.svg` / `favicon-32.png` / `apple-touch-icon.png` | タブなどに表示されるアイコン |
 | `style.css` | デザイン（全ページ共通） |
 | `script.js` | 日本語 / English 切替、メニュー、背景アニメーション |
+| `files/CV_Kohei_Hattori_ja.pdf` / `_en.pdf` | CV の PDF（日本語版・英語版）。自動で作られるので直接は編集しない |
+| `tools/build_cv.py` | `cv.html` と `publications.html` の内容から、LaTeX で CV の PDF を作るスクリプト |
+| `tools/hooks/pre-commit` | コミットのたびに CV の PDF を作り直す設定 |
 | `.nojekyll` | GitHub Pages の Jekyll 処理を無効化 |
 | `.gitignore` | 経歴書.pdf などを公開対象から外す |
 
@@ -59,3 +62,18 @@ python3 -m http.server 8000
 
 スライドだけ・ポスターだけの場合は、不要な方の `<a …>` を消す。公開してよい（共著者の了承がある、未発表データを含まない）ものだけを置くこと。
 
+## CV の PDF（自動作成）
+
+経歴ページの下にある「CV（PDF）」の 2 つのファイルは、ホームページの内容から自動で作られます。CV だけを別に書き直す必要はありません。
+
+- もとになる内容：`cv.html`（名前・所属・連絡先、職歴・学歴・受賞・活動）と `publications.html`（競争的資金・論文・発表）。日本語版は `data-ja`、英語版は `data-en` の文章が使われます。
+- 作り直されるタイミング：`cv.html` か `publications.html` を含むコミットをしたとき。新しい PDF は同じコミットに自動で入ります。
+- 手で作り直すとき：`python3 tools/build_cv.py`（必ず作り直すなら `--force`）。
+- 必要なもの：LuaLaTeX（MacTeX / TeX Live）と python3。
+- 見た目（余白・色・見出しなど）を変えたいとき：`tools/build_cv.py` の中の `TEMPLATE`（LaTeX の雛形）を編集します。
+
+別のパソコンにこのフォルダを移したときは、自動作成を有効にするために次を 1 回だけ実行してください。
+
+```sh
+git config core.hooksPath tools/hooks
+```

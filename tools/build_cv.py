@@ -386,8 +386,19 @@ MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
 
 
+JAPANESE = re.compile(u"[\u3000-\u30ff\u3400-\u9fff\uff00-\uffef]")
+
+
+def japanese_left(tex):
+    """英語版に残っている日本語の行（cv.html / publications.html に data-en が無い箇所）。"""
+    body = tex.split(r"\begin{document}", 1)[-1]
+    return [tidy(re.sub(r"\\[A-Za-z]+|[{}\[\]]", " ", ln))[:70] for ln in body.splitlines() if JAPANESE.search(ln)]
+
+
 def make_tex(lang, cv, pubs, today):
     name, sub, affil, contact = header(cv, lang)
+    if lang == "en" and JAPANESE.search(sub):
+        sub = ""  # 英語版は英語だけにする（名前の漢字表記は入れない）
     body = cv_sections(cv, lang) + grants(pubs, lang) + papers(pubs, lang) + talks(pubs, lang)
     if lang == "ja":
         date = u"%d年%d月%d日 現在" % (today.year, today.month, today.day)
@@ -451,6 +462,12 @@ def main():
     for lang in ("ja", "en"):
         base = "cv_" + lang
         tex = make_tex(lang, cv, pubs, today)
+        if lang == "en":
+            left = japanese_left(tex)
+            if left:
+                print("  warning: 英語版に日本語が %d 行残っています（data-en を書き足してください）:" % len(left))
+                for ln in left[:8]:
+                    print("    - " + ln)
         tex_path = os.path.join(BUILD, base + ".tex")
         pdf_out = os.path.join(OUT, PDF_NAME[lang])
         old = io.open(tex_path, encoding="utf-8").read() if os.path.exists(tex_path) else None

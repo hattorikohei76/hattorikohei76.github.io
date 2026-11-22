@@ -29,6 +29,8 @@ GitHub Pages で公開する個人ホームページです（HTML / CSS / JS の
 - ニュースは `news-data.js` に `{ date, type, ja, en }` を追加します（type は talk / invited / seminar / visit / award / info。予定には `jaPast` / `enPast` を書いておくと、過ぎたあと自動で過去形になります）（日付順に自動で並び、ニュースページでは年ごとに分かれます）。
 - `style.css` / `script.js` / `news-data.js` を変更したら、全 HTML の `?v=…` の番号も更新してください（ブラウザに古いファイルが残らないようにするため）。
 - ライト / ダークの色は `style.css` の先頭にあります。ダークの値は 2 か所（OS の設定に従う場合・ボタンで選んだ場合）に同じものを書いているので、変えるときは両方を直してください。
+- マウスを乗せたときの動きの速さは `style.css` の先頭の `--t-fast` / `--t` / `--ease` で全体をまとめて変えられます。
+- 「→」つきのリンクは、矢印を `<span class="arrow" aria-hidden="true">→</span>` と書くと、マウスを乗せたときに矢印が少し動きます。
 - 上部メニューは各ページに同じものが入っています。ページを増やすときは全ページのメニューに追加してください。
 
 ## ローカルで確認
@@ -69,6 +71,7 @@ python3 -m http.server 8000
 
 - もとになる内容：`cv.html`（名前・所属・連絡先、職歴・学歴・受賞・活動）と `publications.html`（競争的資金・論文・発表）。日本語版は `data-ja`、英語版は `data-en` の文章が使われます。
 - 作り直されるタイミング：`cv.html` か `publications.html` を含むコミットをしたとき。新しい PDF は同じコミットに自動で入ります。
+- 英語版は英語だけで作ります。国内の発表を足すときも、題と会議名を `<span data-ja>…</span><span data-en>…</span>` の形で両方書いてください。英語が抜けていると、作成時に「英語版に日本語が残っています」と該当の行が表示されます。
 - 手で作り直すとき：`python3 tools/build_cv.py`（必ず作り直すなら `--force`）。
 - 必要なもの：LuaLaTeX（MacTeX / TeX Live）と python3。
 - 見た目（余白・色・見出しなど）を変えたいとき：`tools/build_cv.py` の中の `TEMPLATE`（LaTeX の雛形）を編集します。

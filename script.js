@@ -62,6 +62,48 @@
   });
 })();
 
+// ===== メニューの現在地の線 =====
+// 今のページの項目の下に線を置く。マウスを乗せた（Tab キーで選んだ）項目へ滑って移動し、離すと戻る。
+(function () {
+  const list = document.querySelector(".nav-links");
+  if (!list) return;
+  const current = list.querySelector('a[aria-current="page"]');
+  const bar = document.createElement("li");
+  bar.className = "nav-indicator";
+  bar.setAttribute("aria-hidden", "true");
+  list.appendChild(bar);
+  list.classList.add("has-indicator");
+  let target = current;
+
+  function place() {
+    if (!target) { bar.classList.remove("is-on"); return; }
+    const box = list.getBoundingClientRect();
+    const r = target.getBoundingClientRect();
+    if (!r.width) return;  // メニューが畳まれている（狭い画面）
+    bar.style.setProperty("--x", (r.left - box.left) + "px");
+    bar.style.setProperty("--y", (r.bottom - box.top + 4) + "px");
+    bar.style.setProperty("--w", r.width + "px");
+    bar.classList.add("is-on");
+  }
+  function moveTo(link) { target = link; place(); }
+
+  list.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("mouseenter", () => moveTo(a));
+    a.addEventListener("focus", () => moveTo(a));
+    a.addEventListener("blur", () => moveTo(current));
+  });
+  list.addEventListener("mouseleave", () => moveTo(current));
+
+  // 最初は動かさずに置き、それ以降の移動だけ滑らせる
+  place();
+  requestAnimationFrame(() => requestAnimationFrame(() => bar.classList.add("is-ready")));
+
+  // 言語の切替・フォントの読み込み・画面幅の変化で項目の幅が変わったら置き直す
+  if ("ResizeObserver" in window) new ResizeObserver(place).observe(list);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  window.addEventListener("resize", place);
+})();
+
 // ===== スクロール時のヘッダー・フェードイン =====
 (function () {
   const header = document.querySelector(".site-header");

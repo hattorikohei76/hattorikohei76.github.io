@@ -328,7 +328,8 @@
 
   // ニュースの種類ラベル（news-data.js の type に対応）
   const TYPES = {
-    talk:    { ja: "発表",     en: "Talk" },
+    talk:    { ja: "口頭発表",     en: "Talk" },
+    poster:  { ja: "ポスター発表", en: "Poster" },
     invited: { ja: "招待講演", en: "Invited" },
     seminar: { ja: "セミナー", en: "Seminar" },
     visit:   { ja: "滞在",     en: "Visit" },

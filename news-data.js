@@ -3,11 +3,11 @@
 // 日付が今日以降のものは「これからの予定」、過ぎたものは「これまで」に自動で分かれます。
 // date: "YYYY.MM.DD" / ja: 日本語 / en: 英語（リンクは <a href="..."> で書けます）
 // jaPast / enPast: （任意）予定が過ぎたあとに自動で切り替わる過去形の文
-// type: 種類のラベル（talk=発表 / invited=招待講演 / seminar=セミナー / visit=滞在 / award=受賞 / info=お知らせ）
+// type: 種類のラベル（talk=口頭発表 / poster=ポスター発表 / invited=招待講演 / seminar=セミナー / visit=滞在 / award=受賞 / info=お知らせ）
 window.NEWS = [
   {
     date: "2026.12.14–15",
-    type: "talk",
+    type: "poster",
     ja: "学術変革領域(A)「相関設計で挑む量子創発」<a href=\"https://cds.phys.s.u-tokyo.ac.jp/events/annual-meeting-2026/\" target=\"_blank\" rel=\"noopener\">2026年 領域会議</a>（東京大学 本郷キャンパス 武田ホール、東京都文京区）で「Nonreciprocal magnon dynamics from hidden Dirac charges」についてポスター発表します。",
     en: "I will present a poster, “Nonreciprocal magnon dynamics from hidden Dirac charges,” at the <a href=\"https://cds.phys.s.u-tokyo.ac.jp/events/annual-meeting-2026/\" target=\"_blank\" rel=\"noopener\">Annual Meeting 2026</a> of the Correlation Design Science project (Takeda Hall, Hongo Campus, The University of Tokyo).",
     jaPast: "学術変革領域(A)「相関設計で挑む量子創発」<a href=\"https://cds.phys.s.u-tokyo.ac.jp/events/annual-meeting-2026/\" target=\"_blank\" rel=\"noopener\">2026年 領域会議</a>（東京大学 本郷キャンパス 武田ホール、東京都文京区）で「Nonreciprocal magnon dynamics from hidden Dirac charges」についてポスター発表しました。",
@@ -23,7 +23,7 @@ window.NEWS = [
   },
   {
     date: "2026.11.24–26",
-    type: "talk",
+    type: "poster",
     ja: "<a href=\"https://rytaroarita.github.io/cds-quast-conference2026/index.html\" target=\"_blank\" rel=\"noopener\">CDS × QUAST Joint Workshop「Frontiers in Correlated Quantum Matter」</a>（東京大学 本郷キャンパス 小柴ホール、東京都文京区）で「Dirac charge in antiferromagnetic topological semimetals」についてポスター発表します。",
     en: "I will present a poster, “Dirac charge in antiferromagnetic topological semimetals,” at the <a href=\"https://rytaroarita.github.io/cds-quast-conference2026/index.html\" target=\"_blank\" rel=\"noopener\">CDS × QUAST Joint Workshop “Frontiers in Correlated Quantum Matter”</a> (Koshiba Hall, Hongo Campus, The University of Tokyo).",
     jaPast: "<a href=\"https://rytaroarita.github.io/cds-quast-conference2026/index.html\" target=\"_blank\" rel=\"noopener\">CDS × QUAST Joint Workshop「Frontiers in Correlated Quantum Matter」</a>（東京大学 本郷キャンパス 小柴ホール、東京都文京区）で「Dirac charge in antiferromagnetic topological semimetals」についてポスター発表しました。",
@@ -45,7 +45,7 @@ window.NEWS = [
   },
   {
     date: "2026.10.26",
-    type: "talk",
+    type: "poster",
     ja: "国際会議 <a href=\"https://smartconf.jp/content/pipt9/\" target=\"_blank\" rel=\"noopener\">PIPT9（9th International Conference on Photoinduced Phase Transitions and Cooperative Phenomena）</a>（東京大学 伊藤国際学術研究センター、東京都文京区）で「Dirac charge in antiferromagnetic topological semimetals」についてポスター発表しました。",
     en: "Presented a poster, “Dirac charge in antiferromagnetic topological semimetals,” at <a href=\"https://smartconf.jp/content/pipt9/\" target=\"_blank\" rel=\"noopener\">PIPT9 (9th International Conference on Photoinduced Phase Transitions and Cooperative Phenomena)</a>, Ito International Research Center, The University of Tokyo."
   },

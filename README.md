@@ -26,7 +26,7 @@ GitHub Pages で公開する個人ホームページです（HTML / CSS / JS の
 
 - 日本語は `data-ja`、英語は `data-en` のついた要素に書きます。
 - `og-image.jpg` は URL を共有したときに表示されるカード画像です。
-- ニュースは `news-data.js` に `{ date, type, ja, en }` を追加します（type は talk / invited / seminar / visit / award / info。予定には `jaPast` / `enPast` を書いておくと、過ぎたあと自動で過去形になります）（日付順に自動で並び、ニュースページでは年ごとに分かれます）。
+- ニュースは `news-data.js` に `{ date, type, ja, en }` を追加します（type は talk（口頭発表）/ poster（ポスター発表）/ invited / seminar / visit / award / info。予定には `jaPast` / `enPast` を書いておくと、過ぎたあと自動で過去形になります）（日付順に自動で並び、ニュースページでは年ごとに分かれます）。
 - `style.css` / `script.js` / `news-data.js` を変更したら、全 HTML の `?v=…` の番号も更新してください（ブラウザに古いファイルが残らないようにするため）。
 - ライト / ダークの色は `style.css` の先頭にあります。ダークの値は 2 か所（OS の設定に従う場合・ボタンで選んだ場合）に同じものを書いているので、変えるときは両方を直してください。
 - マウスを乗せたときの動きの速さは `style.css` の先頭の `--t-fast` / `--t` / `--ease` で全体をまとめて変えられます。
